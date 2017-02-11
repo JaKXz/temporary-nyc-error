@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "coverage": "NODE_ENV=test ./node_modules/.bin/nyc npm test",
-    "test": "./node_modules/.bin/ava --no-cache --verbose",
+    "test": "cross-env NODE_ENV=test nyc ava --verbose",
     "start": "node ./src/index.js"
   },
   "author": "",
@@ -15,42 +14,26 @@
   },
   "devDependencies": {
     "ava": "^0.18.1",
+    "babel-plugin-istanbul": "^4.0.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-register": "^6.22.0",
+    "cross-env": "^3.1.4",
     "nyc": "^10.1.2"
-  },
-  "ava": {
-    "files": [
-      "test/**/*.js"
-    ],
-    "source": [
-      "src/**/*.js",
-      "src/*.js"
-    ],
-    "match": [
-      "should*"
-    ],
-    "concurrency": 5,
-    "failFast": true,
-    "tap": false,
-    "powerAssert": true
   },
   "nyc": {
     "include": [
-      "src/**/*.js",
-      "src/*.js"
+      "src"
     ],
-    "exclude": [
-      "node_modules",
-      "coverage",
-      "test"
-    ],
-    "extension": [
-      "*.js"
+    "require": [
+      "babel-register"
     ],
     "reporter": [
       "lcov",
       "text"
     ],
     "all": true,
+    "sourceMap": false,
+    "instrument": false,
     "cache": false
   }
 }
